@@ -165,11 +165,11 @@ namespace Xunit.Runner.VisualStudio
                 runContext, frameworkHandle, logger, testPlatformContext, runSettings,
                 () => sources.Select(source =>
                 {
-                    var assemblyFileName = GetAssemblyFileName(source);
+                    var assemblyFileName = ConfigurationHelper.GetAssemblyFileName(source);
                     return new AssemblyRunInfo
                     {
                         AssemblyFileName = assemblyFileName,
-                        Configuration = LoadConfiguration(assemblyFileName),
+                        Configuration = ConfigurationHelper.LoadConfiguration(assemblyFileName),
                         TestCases = null // PERF: delay the discovery until we actually require it in RunTestsInAssembly
                     };
                 }).ToList()
@@ -198,7 +198,7 @@ namespace Xunit.Runner.VisualStudio
             RunTests(
                 runContext, frameworkHandle, logger, testPlatformContext, runSettings,
                 () => tests.GroupBy(testCase => testCase.Source)
-                           .Select(group => new AssemblyRunInfo { AssemblyFileName = group.Key, Configuration = LoadConfiguration(group.Key), TestCases = group.ToList() })
+                           .Select(group => new AssemblyRunInfo { AssemblyFileName = group.Key, Configuration = ConfigurationHelper.LoadConfiguration(group.Key), TestCases = group.ToList() })
                            .ToList()
             );
         }
@@ -226,8 +226,8 @@ namespace Xunit.Runner.VisualStudio
                 {
                     foreach (var assemblyFileNameCanBeWithoutAbsolutePath in sources)
                     {
-                        var assemblyFileName = GetAssemblyFileName(assemblyFileNameCanBeWithoutAbsolutePath);
-                        var configuration = LoadConfiguration(assemblyFileName);
+                        var assemblyFileName = ConfigurationHelper.GetAssemblyFileName(assemblyFileNameCanBeWithoutAbsolutePath);
+                        var configuration = ConfigurationHelper.LoadConfiguration(assemblyFileName);
                         var fileName = Path.GetFileNameWithoutExtension(assemblyFileName);
                         var shadowCopy = configuration.ShadowCopyOrDefault;
                         var diagnosticSink = DiagnosticMessageSink.ForDiagnostics(logger, fileName, configuration.DiagnosticMessagesOrDefault);
@@ -394,25 +394,6 @@ namespace Xunit.Runner.VisualStudio
             }
         }
 #endif
-
-        static string GetAssemblyFileName(string source)
-        {
-#if !WINDOWS_UAP
-            return Path.GetFullPath(source);
-#else
-            return source;
-#endif
-        }
-
-        static TestAssemblyConfiguration LoadConfiguration(string assemblyName)
-        {
-#if WINDOWS_UAP
-            var stream = GetConfigurationStreamForAssembly(assemblyName);
-            return stream == null ? new TestAssemblyConfiguration() : ConfigReader.Load(stream);
-#else
-            return ConfigReader.Load(assemblyName);
-#endif
-        }
 
         void RunTests(IRunContext runContext,
                       IFrameworkHandle frameworkHandle,

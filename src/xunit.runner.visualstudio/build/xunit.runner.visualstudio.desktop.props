@@ -21,6 +21,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Visible>False</Visible>
     </None>
+    <None Include="$(MSBuildThisFileDirectory)..\_common\xunit.runner.visualstudio.sourcetestdiscoverer.dll">
+      <Link>xunit.runner.visualstudio.sourcetestdiscoverer.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>False</Visible>
+    </None>
     <ProjectCapability Include="TestContainer" />
   </ItemGroup>
 </Project>

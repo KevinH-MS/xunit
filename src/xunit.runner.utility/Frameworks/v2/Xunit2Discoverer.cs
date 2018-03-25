@@ -235,7 +235,12 @@ namespace Xunit
             throw new InvalidOperationException("Could not find/load any of the following assemblies: " + string.Join(", ", supportedPlatformSuffixes.Select(suffix => $"xunit.execution.{suffix}.dll").ToArray()));
         }
 
-        static string[] GetSupportedPlatformSuffixes(AppDomainSupport appDomainSupport)
+        /// <summary>
+        /// Helper to get the list of supported platform suffixes for a given configuration.
+        /// </summary>
+        /// <param name="appDomainSupport">Determines whether tests should be run in a separate app domain.</param>
+        /// <returns></returns>
+        public static string[] GetSupportedPlatformSuffixes(AppDomainSupport appDomainSupport)
         {
 #if NET35 || NET452
             return appDomainSupport == AppDomainSupport.Required ? SupportedPlatforms_ForcedAppDomains : SupportedPlatforms;

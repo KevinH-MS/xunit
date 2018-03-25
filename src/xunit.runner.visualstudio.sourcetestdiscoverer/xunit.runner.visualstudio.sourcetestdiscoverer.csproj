@@ -1,0 +1,28 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName Condition=" '$(TargetFramework)' == 'net46' ">xunit.runner.visualstudio.sourcetestdiscoverer</AssemblyName>
+    <DefineConstants Condition=" '$(TargetFramework)' == 'net46' ">$(DefineConstants);NET46</DefineConstants>
+    <RootNamespace>Xunit.Runner.VisualStudio</RootNamespace>
+    <TargetFramework>net46</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\common\ConfigurationHelper.cs" LinkBase="Common" />
+    <Compile Include="..\common\Constants.cs" LinkBase="Common" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.Compilers" Version="2.8.0-beta3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\xunit.runner.reporters\xunit.runner.reporters.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
+    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="11.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>

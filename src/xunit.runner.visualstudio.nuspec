@@ -23,6 +23,7 @@
     <file src="xunit.runner.visualstudio\bin\$Configuration$\net452\xunit.runner.reporters.net452.dll"         target="build\_common\" />
     <file src="xunit.runner.visualstudio\bin\$Configuration$\net452\xunit.runner.utility.net452.dll"           target="build\_common\" />
     <file src="xunit.runner.visualstudio\bin\$Configuration$\net452\xunit.runner.visualstudio.testadapter.dll" target="build\_common\" />
+    <file src="xunit.runner.visualstudio.sourcetestdiscoverer\bin\$Configuration$\net46\xunit.runner.visualstudio.sourcetestdiscoverer.dll" target="build\_common\" />
 
     <file src="xunit.runner.visualstudio\build\xunit.runner.visualstudio.desktop.props" target="build\net20\xunit.runner.visualstudio.props" />
 
