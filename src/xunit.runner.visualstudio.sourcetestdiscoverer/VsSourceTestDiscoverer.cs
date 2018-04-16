@@ -48,7 +48,9 @@ namespace Xunit.Runner.VisualStudio
 
         static bool TryGetXunitExecutionAssemblyPath(AppDomainSupport appDomainSupport, Compilation compilation, out string xunitExecutionAssemblyPath)
         {
-            var supportedPlatformSuffixes = Xunit2Discoverer.GetSupportedPlatformSuffixes(appDomainSupport);
+            // TODO: Use GetSupportedPlatformSuffixes
+            //var supportedPlatformSuffixes = Xunit2Discoverer.GetSupportedPlatformSuffixes(appDomainSupport);
+            var supportedPlatformSuffixes = new[] { "dotnet", "desktop" };
 
             foreach (var suffix in supportedPlatformSuffixes)
             {
